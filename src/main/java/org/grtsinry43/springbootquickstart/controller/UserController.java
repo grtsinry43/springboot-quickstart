@@ -1,7 +1,7 @@
 package org.grtsinry43.springbootquickstart.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import org.grtsinry43.springbootquickstart.dto.ApiResponse;
 import org.grtsinry43.springbootquickstart.model.User;
 import org.grtsinry43.springbootquickstart.service.UserService;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@Validated
+@Validated
 @RequestMapping("/user")
 public class UserController {
     private final UserService userService;
@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ApiResponse<String> addUser(@RequestParam String name) {
+    public ApiResponse<String> addUser(@RequestParam @NotBlank String name) {
         User user = new User(name);
         boolean save = userService.save(user);
         if (save) {
